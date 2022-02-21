@@ -1,14 +1,41 @@
+# ------------------------------------------------------------------------------
+# CMake
+# ------------------------------------------------------------------------------
 cmake_minimum_required(VERSION 3.22)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# ------------------------------------------------------------------------------
+# Project
+# ------------------------------------------------------------------------------
 project(starter_project LANGUAGES CXX)
 
+# ------------------------------------------------------------------------------
+# Project Standards
+# ------------------------------------------------------------------------------
 add_library(projectStandards INTERFACE)
 target_compile_features(projectStandards INTERFACE cxx_std_20)
 
+# ------------------------------------------------------------------------------
+# Vendor
+# ------------------------------------------------------------------------------
 add_subdirectory(vendor/glfw)
+add_subdirectory(vendor/imgui)
 
+# ------------------------------------------------------------------------------
+# Includes
+# ------------------------------------------------------------------------------
 include_directories(vendor/glfw/include)
+include_directories(vendor/imgui)
+
+# ------------------------------------------------------------------------------
+# Source Files
+# ------------------------------------------------------------------------------
+set(VENDOR_SOURCES
+  vendor/imgui/backends/imgui_impl_opengl3.cpp
+  vendor/imgui/backends/imgui_impl_opengl3.h
+  vendor/imgui/backends/imgui_impl_glfw.cpp
+  vendor/imgui/backends/imgui_impl_glfw.h
+)
 
 set(SOURCE_FILES
   src/Main.cpp
@@ -23,8 +50,15 @@ set(SOURCE_FILES
   src/Window.h
 )
 
-add_executable(project ${SOURCE_FILES})
+# ------------------------------------------------------------------------------
+# Target
+# ------------------------------------------------------------------------------
+add_executable(project ${SOURCE_FILES} ${VENDOR_SOURCES})
 
+# ------------------------------------------------------------------------------
+# Libraries
+# ------------------------------------------------------------------------------
 target_link_libraries(project PRIVATE projectStandards)
 target_link_libraries(project PRIVATE GL)
 target_link_libraries(project PRIVATE glfw)
+target_link_libraries(project PRIVATE imgui)
