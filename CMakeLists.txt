@@ -5,6 +5,8 @@ project(starter_project LANGUAGES CXX)
 
 set(SOURCE_FILES
   src/Main.cpp
+  src/Application.cpp
+  src/Application.h
 )
 
 add_executable(project ${SOURCE_FILES})
