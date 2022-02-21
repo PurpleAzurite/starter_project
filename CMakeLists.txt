@@ -5,8 +5,12 @@ project(starter_project LANGUAGES CXX)
 
 set(SOURCE_FILES
   src/Main.cpp
+
   src/Application.cpp
   src/Application.h
+
+  src/Events/Event.h
+  src/Events/WindowEvents.h
 )
 
 add_executable(project ${SOURCE_FILES})
