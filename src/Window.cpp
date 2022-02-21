@@ -25,7 +25,6 @@ Window::Window(WindowProps data)
     // TODO General callbacks
     glfwSetWindowCloseCallback(m_context, [](GLFWwindow* window) {
         auto& data = *reinterpret_cast<WindowProps*>(glfwGetWindowUserPointer(window));
-
         WindowClosedEvent event;
         data.callback(event);
     });
