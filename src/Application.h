@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Window.h"
+
 namespace Engine {
 
 class Application
@@ -14,6 +16,7 @@ public:
 
 private:
     bool m_running = true;
+    Window* m_mainWindow;
 };
 
 } // namespace Engine
