@@ -18,6 +18,9 @@ set(SOURCE_FILES
 
   src/Events/Event.h
   src/Events/WindowEvents.h
+
+  src/Window.cpp
+  src/Window.h
 )
 
 add_executable(project ${SOURCE_FILES})
