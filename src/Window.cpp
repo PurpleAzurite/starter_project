@@ -1,11 +1,14 @@
 #include "Window.h"
+#include "Events/WindowEvents.h"
 #include "GLFW/glfw3.h"
 #include <utility>
 
 namespace Engine {
 
-Window::Window(WindowProps data) : m_data(std::move(data))
+Window::Window(WindowProps data)
+    : m_data(std::move(data))
 {
+    // TODO error callback
     if (!glfwInit())
         ;
 
@@ -16,6 +19,16 @@ Window::Window(WindowProps data) : m_data(std::move(data))
         ;
 
     glfwMakeContextCurrent(m_context);
+
+    glfwSetWindowUserPointer(m_context, reinterpret_cast<void*>(&m_data));
+
+    // TODO General callbacks
+    glfwSetWindowCloseCallback(m_context, [](GLFWwindow* window) {
+        auto& data = *reinterpret_cast<WindowProps*>(glfwGetWindowUserPointer(window));
+
+        WindowClosedEvent event;
+        data.callback(event);
+    });
 }
 
 Window::~Window()

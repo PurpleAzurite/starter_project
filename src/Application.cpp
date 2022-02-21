@@ -1,18 +1,17 @@
 #include "Application.h"
+#include "Events/WindowEvents.h"
 
-#define BIT(x) std::bind(&Engine::Application::x, this, std::placeholders::_1)
+#define BIND(x) std::bind(&Engine::Application::x, this, std::placeholders::_1)
 
 namespace Engine {
 
 Application::Application()
     : m_mainWindow(new Window({1280, 720, "Starter Project"}))
 {
+    m_mainWindow->setCallbackFunction(BIND(onEvent));
 }
 
-Application::~Application()
-{
-    delete m_mainWindow;
-}
+Application::~Application() { delete m_mainWindow; }
 
 Application& Application::instance()
 {
@@ -22,10 +21,22 @@ Application& Application::instance()
 
 void Application::run()
 {
-    while (m_running)
-    {
+    while (m_running) {
         m_mainWindow->update();
     }
 }
 
+void Application::onEvent(Event& event)
+{
+    EventDispatcher dispatcher(event);
+    dispatcher.dispatch<WindowClosedEvent>(BIND(onWindowClosedEvent));
+    event.log();
 }
+
+bool Application::onWindowClosedEvent(Event& event)
+{
+    m_running = false;
+    return true;
+}
+
+} // namespace Engine
