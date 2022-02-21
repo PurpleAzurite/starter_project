@@ -7,11 +7,16 @@ namespace Engine {
 
 Application::Application()
     : m_mainWindow(new Window({1280, 720, "Starter Project"}))
+    , m_imgui(new ImGuiLayer{})
 {
     m_mainWindow->setCallbackFunction(BIND(onEvent));
 }
 
-Application::~Application() { delete m_mainWindow; }
+Application::~Application()
+{
+    delete m_imgui;
+    delete m_mainWindow;
+}
 
 Application& Application::instance()
 {
@@ -21,9 +26,15 @@ Application& Application::instance()
 
 void Application::run()
 {
-    while (m_running) {
+    m_imgui->onAttach();
+
+    while (m_running)
+    {
+        m_imgui->onUpdate();
         m_mainWindow->update();
     }
+
+    m_imgui->onDetach();
 }
 
 void Application::onEvent(Event& event)

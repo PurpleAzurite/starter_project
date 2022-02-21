@@ -30,6 +30,7 @@ public:
 public:
     void update();
     void setCallbackFunction(const CallbackFn& fn);
+    inline GLFWwindow* context() { return m_context; }
 
 private:
     GLFWwindow* m_context;

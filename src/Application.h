@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Window.h"
+#include "Layers/ImGuiLayer.h"
 
 namespace Engine {
 
@@ -16,9 +17,12 @@ public:
     void onEvent(Event& event);
     bool onWindowClosedEvent(Event& event);
 
+    inline Window* window() { return m_mainWindow; }
+
 private:
     bool m_running = true;
     Window* m_mainWindow;
+    ImGuiLayer* m_imgui;
 };
 
 } // namespace Engine
