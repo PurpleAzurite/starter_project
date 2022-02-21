@@ -48,6 +48,10 @@ set(SOURCE_FILES
 
   src/Window.cpp
   src/Window.h
+
+  src/Layers/Layer.h
+  src/Layers/ImGuiLayer.cpp
+  src/Layers/ImGuiLayer.h
 )
 
 # ------------------------------------------------------------------------------
