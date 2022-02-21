@@ -1,7 +1,12 @@
+// clang-format off
+#include "Application.h"
 #include <iostream>
+// clang-format on
 
 int main()
 {
-    std::cout << "Hello, World!\n";
+    auto& app = Engine::Application::instance();
+    app.run();
+
     return 0;
 }
