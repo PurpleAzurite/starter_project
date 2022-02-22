@@ -12,6 +12,9 @@ public:
     void onUpdate(double frameTime) override;
     void endImGui();
     void onDetach() override;
+
+private:
+    void showStats(double frameTime);
 };
 
 } // namespace Engine

@@ -48,11 +48,7 @@ void ImGuiLayer::onUpdate(double frameTime)
 
     // ImGui::ShowDemoWindow();
 
-    if (ImGui::Begin("Stats"))
-    {
-        ImGui::Text("FPS: %f", frameTime * 3600);
-        ImGui::End();
-    }
+    showStats(frameTime);
 
     if (ImGui::BeginMainMenuBar())
     {
@@ -88,6 +84,42 @@ void ImGuiLayer::onDetach()
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
+}
+
+void ImGuiLayer::showStats(double frameTime)
+{
+    static auto corner = 0;
+    // ImGuiIO& io = ImGui::GetIO();
+    // (void)io;
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking |
+                                    ImGuiWindowFlags_AlwaysAutoResize |
+                                    ImGuiWindowFlags_NoSavedSettings |
+                                    ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav;
+
+    if (corner != -1)
+    {
+        constexpr auto pad = 10.0f;
+        const auto* viewport = ImGui::GetMainViewport();
+        ImVec2 workPos = viewport->WorkPos; // Use work area to avoid menu-bar/task-bar, if any!
+        ImVec2 workSize = viewport->WorkSize;
+        ImVec2 windowPos;
+        ImVec2 windowPosPivot;
+        windowPos.x = (corner & 1) ? (workPos.x + workSize.x - pad) : (workPos.x + pad);
+        windowPos.y = (corner & 2) ? (workPos.y + workSize.y - pad) : (workPos.y + pad);
+        windowPosPivot.x = (corner & 1) ? 1.0f : 0.0f;
+        windowPosPivot.y = (corner & 2) ? 1.0f : 0.0f;
+        ImGui::SetNextWindowPos(windowPos, ImGuiCond_Always, windowPosPivot);
+        ImGui::SetNextWindowViewport(viewport->ID);
+        window_flags |= ImGuiWindowFlags_NoMove;
+    }
+
+    if (ImGui::Begin("Stats", nullptr, window_flags))
+    {
+        ImGui::Text("FPS: %f", frameTime * 3600);
+        // ImGui::Separator();
+
+        ImGui::End();
+    }
 }
 
 } // namespace Engine

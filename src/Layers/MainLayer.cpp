@@ -8,7 +8,6 @@ void MainLayer::onAttach() {}
 
 void MainLayer::onUpdate(double frameTime)
 {
-    (void)frameTime;
     if (ImGui::Begin("Panel"))
     {
         if (ImGui::ColorPicker4("Clear Color", &m_clearColor.x))
