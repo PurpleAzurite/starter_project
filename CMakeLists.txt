@@ -7,7 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # ------------------------------------------------------------------------------
 # Project
 # ------------------------------------------------------------------------------
-project(starter_project LANGUAGES CXX)
+project(starter_project LANGUAGES C CXX)
 
 # ------------------------------------------------------------------------------
 # Project Standards
@@ -25,12 +25,14 @@ add_subdirectory(vendor/imgui)
 # Includes
 # ------------------------------------------------------------------------------
 include_directories(vendor/glfw/include)
+include_directories(vendor/glad/include)
 include_directories(vendor/imgui)
 
 # ------------------------------------------------------------------------------
 # Source Files
 # ------------------------------------------------------------------------------
 set(VENDOR_SOURCES
+  vendor/glad/src/glad.c
   vendor/imgui/backends/imgui_impl_opengl3.cpp
   vendor/imgui/backends/imgui_impl_opengl3.h
   vendor/imgui/backends/imgui_impl_glfw.cpp
