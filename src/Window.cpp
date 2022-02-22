@@ -1,22 +1,22 @@
+// clang-format off
 #include "Window.h"
 #include "Events/WindowEvents.h"
 #include "GLFW/glfw3.h"
 #include <utility>
+// clang-format on
 
 namespace Engine {
 
 Window::Window(WindowProps data)
     : m_data(std::move(data))
 {
-    // TODO error callback
-    if (!glfwInit())
-        ;
+    glfwSetErrorCallback(
+        [](int code, const char* msg) { ENGINE_ERROR("[GLFW] Error {}: {}", code, msg); });
+
+    glfwInit();
 
     m_context =
         glfwCreateWindow(m_data.width, m_data.height, m_data.title.data(), nullptr, nullptr);
-
-    if (!m_context)
-        ;
 
     glfwMakeContextCurrent(m_context);
 
