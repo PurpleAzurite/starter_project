@@ -45,6 +45,7 @@ void ImGuiLayer::runImGui()
 void ImGuiLayer::onUpdate(double frameTime)
 {
     auto& app = Application::instance();
+    ImGui::DockSpaceOverViewport(nullptr, ImGuiDockNodeFlags_PassthruCentralNode);
 
     // ImGui::ShowDemoWindow();
 
