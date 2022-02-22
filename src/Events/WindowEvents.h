@@ -11,7 +11,9 @@ class WindowClosedEvent : public Event
 {
 public:
     EVENT_CLASS_TYPE(windowClosed);
-    void log() { ENGINE_INFO("Window closed"); }
+    EVENT_CLASS_CATEGORY(EventCategoryWindow);
+
+    void log() override { ENGINE_INFO("Window closed"); }
 };
 
 } // namespace Engine

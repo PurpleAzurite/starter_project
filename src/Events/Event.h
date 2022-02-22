@@ -1,5 +1,7 @@
 #pragma once
 
+#define BIT(x) (1 << x)
+
 namespace Engine {
 
 enum class EventType {
@@ -9,11 +11,26 @@ enum class EventType {
     windowResized,
     windowFocused,
     windowLostFocus,
+    mouseMoved,
+    mouseButtonPressed,
+    mouseButtonReleased,
+    mouseScrolled,
+};
+
+enum EventCategory {
+    none = 0,
+    EventCategoryApplication = BIT(1),
+    EventCategoryWindow = BIT(1),
+    EventCategoryInput = BIT(2),
+    EventCategoryMouse = BIT(3),
 };
 
 #define EVENT_CLASS_TYPE(x)                                                                        \
     static EventType staticType() { return EventType::x; }                                         \
-    virtual EventType eventType() const { return staticType(); }
+    EventType eventType() const override { return staticType(); }
+
+#define EVENT_CLASS_CATEGORY(x)                                                                    \
+    virtual EventCategory categoryFlags() const override { return EventCategory::x; }
 
 struct Event
 {
@@ -21,6 +38,10 @@ struct Event
     virtual ~Event() = default;
 
     virtual EventType eventType() const = 0;
+    virtual EventCategory categoryFlags() const = 0;
+
+    bool isInCategory(EventCategory category) const { return categoryFlags() & category; }
+
     virtual void log() = 0;
 
     bool handled = false;
@@ -29,13 +50,17 @@ struct Event
 class EventDispatcher
 {
 public:
-    EventDispatcher(Event& event) : m_event(event) {}
+    EventDispatcher(Event& event)
+        : m_event(event)
+    {
+    }
 
 public:
     template <typename T, typename F>
     bool dispatch(const F& fn)
     {
-        if (m_event.eventType() == T::staticType()) {
+        if (m_event.eventType() == T::staticType())
+        {
             m_event.handled |= fn(static_cast<T&>(m_event));
             return true;
         }
