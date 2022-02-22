@@ -71,6 +71,13 @@ set(SOURCE_FILES
 add_executable(project ${SOURCE_FILES} ${VENDOR_SOURCES})
 
 # ------------------------------------------------------------------------------
+# Definition
+# ------------------------------------------------------------------------------
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  target_compile_definitions(project PRIVATE DEBUG_BUILD)
+endif()
+
+# ------------------------------------------------------------------------------
 # Libraries
 # ------------------------------------------------------------------------------
 target_link_libraries(project PRIVATE projectStandards)
