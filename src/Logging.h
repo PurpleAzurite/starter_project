@@ -23,3 +23,7 @@ private:
 };
 
 }
+
+#define ENGINE_INFO(...) Engine::Logger::engine()->info(__VA_ARGS__)
+#define ENGINE_WARN(...) Engine::Logger::engine()->warn(__VA_ARGS__)
+#define ENGINE_ERROR(...) Engine::Logger::engine()->error(__VA_ARGS__)
