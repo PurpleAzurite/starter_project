@@ -19,7 +19,7 @@ static bool openGlLogErrors(const char* fn, int line, const char* file)
 {
     while (auto error = glGetError())
     {
-        ENGINE_ERROR("[OPENGL] Function {} | line {} of file {}", fn, line, file);
+        ENGINE_ERROR("[OPENGL] Error {} | In function {} on line {} of file {}", error, fn, line, file);
         return false;
     }
 
