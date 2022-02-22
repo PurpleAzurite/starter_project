@@ -18,12 +18,14 @@ target_compile_features(projectStandards INTERFACE cxx_std_20)
 # ------------------------------------------------------------------------------
 # Vendor
 # ------------------------------------------------------------------------------
+add_subdirectory(vendor/spdlog)
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/imgui)
 
 # ------------------------------------------------------------------------------
 # Includes
 # ------------------------------------------------------------------------------
+include_directories(vendor/spdlog/include)
 include_directories(vendor/glfw/include)
 include_directories(vendor/glad/include)
 include_directories(vendor/imgui)
@@ -41,6 +43,9 @@ set(VENDOR_SOURCES
 
 set(SOURCE_FILES
   src/Main.cpp
+
+  src/Logging.cpp
+  src/Logging.h
 
   src/Application.cpp
   src/Application.h
@@ -69,6 +74,7 @@ add_executable(project ${SOURCE_FILES} ${VENDOR_SOURCES})
 # Libraries
 # ------------------------------------------------------------------------------
 target_link_libraries(project PRIVATE projectStandards)
+target_link_libraries(project PRIVATE spdlog)
 target_link_libraries(project PRIVATE GL)
 target_link_libraries(project PRIVATE glfw)
 target_link_libraries(project PRIVATE imgui)
