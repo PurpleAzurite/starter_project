@@ -2,7 +2,6 @@
 #include "Window.h"
 #include "Events/WindowEvents.h"
 #include "Events/MouseEvents.h"
-#include "GLFW/glfw3.h"
 #include <utility>
 // clang-format on
 
@@ -20,6 +19,9 @@ Window::Window(WindowProps data)
         glfwCreateWindow(m_data.width, m_data.height, m_data.title.data(), nullptr, nullptr);
 
     glfwMakeContextCurrent(m_context);
+
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+        ENGINE_ERROR("[GLAD] Could not load GLAD!");
 
     glfwSetWindowUserPointer(m_context, reinterpret_cast<void*>(&m_data));
 

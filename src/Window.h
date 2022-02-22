@@ -2,7 +2,8 @@
 
 // clang-format off
 #include "Events/Event.h"
-#include "GLFW/glfw3.h"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <functional>
 #include <string_view>
 // clang-format on
