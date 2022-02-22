@@ -50,6 +50,8 @@ set(SOURCE_FILES
   src/Window.h
 
   src/Layers/Layer.h
+  src/Layers/LayerStack.cpp
+  src/Layers/LayerStack.h
   src/Layers/ImGuiLayer.cpp
   src/Layers/ImGuiLayer.h
   src/Layers/MainLayer.cpp
