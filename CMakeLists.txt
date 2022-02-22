@@ -58,6 +58,8 @@ set(SOURCE_FILES
   src/Window.cpp
   src/Window.h
 
+  src/Renderer.h
+
   src/Layers/Layer.h
   src/Layers/LayerStack.cpp
   src/Layers/LayerStack.h
