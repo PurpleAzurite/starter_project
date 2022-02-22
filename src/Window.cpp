@@ -22,10 +22,16 @@ Window::Window(WindowProps data)
 
     glfwSetWindowUserPointer(m_context, reinterpret_cast<void*>(&m_data));
 
-    // TODO General callbacks
+    // TODO callbacks: window moved, window focus, mouse moved, mouse clicked, mouse scrolled, key pressed, key released
     glfwSetWindowCloseCallback(m_context, [](GLFWwindow* window) {
         auto& data = *reinterpret_cast<WindowProps*>(glfwGetWindowUserPointer(window));
         WindowClosedEvent event;
+        data.callback(event);
+    });
+
+    glfwSetWindowSizeCallback(m_context, [](GLFWwindow* window, int width, int height) {
+        auto& data = *reinterpret_cast<WindowProps*>(glfwGetWindowUserPointer(window));
+        WindowResizedEvent event(width, height);
         data.callback(event);
     });
 }
