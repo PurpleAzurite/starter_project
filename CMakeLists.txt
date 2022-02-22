@@ -54,6 +54,7 @@ set(SOURCE_FILES
   src/Events/Event.h
   src/Events/WindowEvents.h
   src/Events/MouseEvents.h
+  src/Events/KeyEvents.h
 
   src/Window.cpp
   src/Window.h

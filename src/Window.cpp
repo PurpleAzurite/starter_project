@@ -1,5 +1,6 @@
 // clang-format off
 #include "Window.h"
+#include "Events/KeyEvents.h"
 #include "Events/WindowEvents.h"
 #include "Events/MouseEvents.h"
 #include <utility>
@@ -92,6 +93,30 @@ Window::Window(WindowProps data)
         auto& data = *reinterpret_cast<WindowProps*>(glfwGetWindowUserPointer(window));
         MouseScrolledEvent event(xOffset, yOffset);
         data.callback(event);
+    });
+
+    glfwSetKeyCallback(m_context, [](GLFWwindow* window, int key, int scancode, int action, int mod) {
+        (void)scancode;
+        (void)action;
+        (void)mod;
+
+        auto& data = *reinterpret_cast<WindowProps*>(glfwGetWindowUserPointer(window));
+
+        switch(action) {
+            case GLFW_PRESS:
+            {
+                KeyPressedEvent event(key);
+                data.callback(event);
+                break;
+            }
+
+            case GLFW_RELEASE:
+            {
+                KeyReleasedEvent event(key);
+                data.callback(event);
+                break;
+            }
+        }
     });
 
     // TODO callbacks:  key pressed, key
