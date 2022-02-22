@@ -25,6 +25,8 @@ public:
 
 private:
     bool m_running = true;
+    double m_frameTime = 0;
+
     Window* m_mainWindow;
     ImGuiLayer* m_imgui;
     LayerStack m_layers;

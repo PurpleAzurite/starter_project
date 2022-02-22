@@ -9,7 +9,7 @@ class ImGuiLayer : public Layer
 public:
     void onAttach() override;
     void runImGui();
-    void onUpdate() override;
+    void onUpdate(double frameTime) override;
     void endImGui();
     void onDetach() override;
 };

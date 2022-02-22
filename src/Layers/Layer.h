@@ -10,7 +10,7 @@ public:
 
 public:
     virtual void onAttach() = 0;
-    virtual void onUpdate() = 0;
+    virtual void onUpdate(double frameTime) = 0;
     virtual void onDetach() = 0;
     inline bool isEnabled() const { return m_enabled; }
     inline void toggle(bool active) { m_enabled = active; }

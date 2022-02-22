@@ -5,7 +5,7 @@ namespace Engine {
 
 void MainLayer::onAttach() {}
 
-void MainLayer::onUpdate()
+void MainLayer::onUpdate(double frameTime)
 {
     if (ImGui::Begin("Panel"))
     {

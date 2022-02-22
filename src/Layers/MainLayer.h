@@ -9,7 +9,7 @@ class MainLayer : public Layer
 {
 public:
     void onAttach() override;
-    void onUpdate() override;
+    void onUpdate(double frameTime) override;
     void onDetach() override;
 
 private:

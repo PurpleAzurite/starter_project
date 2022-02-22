@@ -42,7 +42,7 @@ void ImGuiLayer::runImGui()
     ImGui::NewFrame();
 }
 
-void ImGuiLayer::onUpdate()
+void ImGuiLayer::onUpdate(double frameTime)
 {
     auto& app = Application::instance();
 
