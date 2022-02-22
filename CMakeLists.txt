@@ -52,6 +52,8 @@ set(SOURCE_FILES
   src/Layers/Layer.h
   src/Layers/ImGuiLayer.cpp
   src/Layers/ImGuiLayer.h
+  src/Layers/MainLayer.cpp
+  src/Layers/MainLayer.h
 )
 
 # ------------------------------------------------------------------------------
