@@ -1,5 +1,8 @@
+// clang-format off
 #include "Application.h"
 #include "Events/WindowEvents.h"
+#include "Layers/MainLayer.h"
+// clang-format on
 
 #define BIND(x) std::bind(&Engine::Application::x, this, std::placeholders::_1)
 
@@ -8,8 +11,10 @@ namespace Engine {
 Application::Application()
     : m_mainWindow(new Window({1280, 720, "Starter Project"}))
     , m_imgui(new ImGuiLayer{})
+    , m_layers()
 {
     m_mainWindow->setCallbackFunction(BIND(onEvent));
+    m_layers.pushLayer(new MainLayer);
 }
 
 Application::~Application()
@@ -30,7 +35,13 @@ void Application::run()
 
     while (m_running)
     {
+        m_imgui->runImGui();
         m_imgui->onUpdate();
+
+        for (auto* i : m_layers)
+            i->onUpdate();
+
+        m_imgui->endImGui();
         m_mainWindow->update();
     }
 
