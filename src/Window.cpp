@@ -1,6 +1,7 @@
 // clang-format off
 #include "Window.h"
 #include "Events/WindowEvents.h"
+#include "Events/MouseEvents.h"
 #include "GLFW/glfw3.h"
 #include <utility>
 // clang-format on
@@ -59,7 +60,39 @@ Window::Window(WindowProps data)
         }
     });
 
-    // TODO callbacks: mouse clicked, mouse scrolled, key pressed, key
+    glfwSetCursorPosCallback(m_context, [](GLFWwindow* window, double x, double y) {
+        auto& data = *reinterpret_cast<WindowProps*>(glfwGetWindowUserPointer(window));
+        MouseMovedEvent event(x, y);
+        data.callback(event);
+    });
+
+    glfwSetMouseButtonCallback(m_context, [](GLFWwindow* window, int button, int action, int mods) {
+        (void)mods;
+        auto& data = *reinterpret_cast<WindowProps*>(glfwGetWindowUserPointer(window));
+
+        switch (action)
+        {
+        case GLFW_PRESS: {
+            MouseButtonPressedEvent event(button);
+            data.callback(event);
+            break;
+        }
+
+        case GLFW_RELEASE: {
+            MouseButtonReleasedEvent event(button);
+            data.callback(event);
+            break;
+        }
+        }
+    });
+
+    glfwSetScrollCallback(m_context, [](GLFWwindow* window, double xOffset, double yOffset) {
+        auto& data = *reinterpret_cast<WindowProps*>(glfwGetWindowUserPointer(window));
+        MouseScrolledEvent event(xOffset, yOffset);
+        data.callback(event);
+    });
+
+    // TODO callbacks:  key pressed, key
     // released
 }
 
