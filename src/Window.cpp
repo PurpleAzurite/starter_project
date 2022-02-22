@@ -41,7 +41,26 @@ Window::Window(WindowProps data)
         data.callback(event);
     });
 
-    // TODO callbacks: window focus, mouse moved, mouse clicked, mouse scrolled, key pressed, key released
+    glfwSetWindowFocusCallback(m_context, [](GLFWwindow* window, int focus) {
+        auto& data = *reinterpret_cast<WindowProps*>(glfwGetWindowUserPointer(window));
+
+        switch (focus)
+        {
+        case 1: {
+            WindowFocusedEvent event;
+            data.callback(event);
+            break;
+        }
+        case 0: {
+            WindowLostFocusEvent event;
+            data.callback(event);
+            break;
+        }
+        }
+    });
+
+    // TODO callbacks: mouse clicked, mouse scrolled, key pressed, key
+    // released
 }
 
 Window::~Window()

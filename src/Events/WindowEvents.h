@@ -56,4 +56,22 @@ private:
     int m_height;
 };
 
+class WindowFocusedEvent : public Event
+{
+public:
+    EVENT_CLASS_TYPE(windowFocused);
+    EVENT_CLASS_CATEGORY(EventCategoryWindow);
+
+    void log() override { ENGINE_INFO("[GLFW] Window focused"); }
+};
+
+class WindowLostFocusEvent : public Event
+{
+public:
+    EVENT_CLASS_TYPE(windowLostFocus);
+    EVENT_CLASS_CATEGORY(EventCategoryWindow);
+
+    void log() override { ENGINE_INFO("[GLFW] Window lost focus"); }
+};
+
 } // namespace Engine
