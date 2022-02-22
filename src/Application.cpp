@@ -11,7 +11,7 @@
 namespace Engine {
 
 Application::Application()
-    : m_mainWindow(new Window({1280, 720, "Starter Project"}))
+    : m_mainWindow(new Window({1280, 720, "Starter Project", nullptr}))
     , m_imgui(new ImGuiLayer{})
     , m_layers()
 {
@@ -64,6 +64,7 @@ void Application::onEvent(Event& event)
 
 bool Application::onWindowClosedEvent(Event& event)
 {
+    (void)event;
     m_running = false;
     return true;
 }
