@@ -1,5 +1,6 @@
 // clang-format off
 #include "Application.h"
+#include "GLFW/glfw3.h"
 #include "Logging.h"
 #include "Events/WindowEvents.h"
 #include "Layers/MainLayer.h"
@@ -36,7 +37,9 @@ void Application::run()
 
     while (m_running)
     {
-        auto deltaTime = glfwGetTime() - m_frameTime;
+        auto currentFrame = glfwGetTime();
+        m_frameTime = currentFrame - m_lastFrame;
+        m_lastFrame = currentFrame;
 
         m_imgui->runImGui();
         m_imgui->onUpdate(m_frameTime);
@@ -45,6 +48,7 @@ void Application::run()
             i->onUpdate(m_frameTime);
 
         m_imgui->endImGui();
+
         m_mainWindow->update();
     }
 

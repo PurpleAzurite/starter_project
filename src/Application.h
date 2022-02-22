@@ -26,6 +26,7 @@ public:
 private:
     bool m_running = true;
     double m_frameTime = 0;
+    double m_lastFrame = 0;
 
     Window* m_mainWindow;
     ImGuiLayer* m_imgui;

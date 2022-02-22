@@ -48,6 +48,12 @@ void ImGuiLayer::onUpdate(double frameTime)
 
     // ImGui::ShowDemoWindow();
 
+    if (ImGui::Begin("Stats"))
+    {
+        ImGui::Text("FPS: %f", frameTime * 3600);
+        ImGui::End();
+    }
+
     if (ImGui::BeginMainMenuBar())
     {
         if (ImGui::BeginMenu("File"))
