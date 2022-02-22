@@ -19,7 +19,7 @@ enum class EventType {
 
 enum EventCategory {
     none = 0,
-    EventCategoryApplication = BIT(1),
+    EventCategoryApplication = BIT(0),
     EventCategoryWindow = BIT(1),
     EventCategoryInput = BIT(2),
     EventCategoryMouse = BIT(3),
@@ -30,7 +30,7 @@ enum EventCategory {
     EventType eventType() const override { return staticType(); }
 
 #define EVENT_CLASS_CATEGORY(x)                                                                    \
-    virtual EventCategory categoryFlags() const override { return EventCategory::x; }
+    virtual int categoryFlags() const override { return EventCategory::x; }
 
 struct Event
 {
@@ -38,7 +38,7 @@ struct Event
     virtual ~Event() = default;
 
     virtual EventType eventType() const = 0;
-    virtual EventCategory categoryFlags() const = 0;
+    virtual int categoryFlags() const = 0;
 
     bool isInCategory(EventCategory category) const { return categoryFlags() & category; }
 
