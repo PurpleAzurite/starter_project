@@ -1,6 +1,7 @@
 // clang-format off
 #include "ImGuiLayer.h"
 #include "../Application.h"
+#include "imgui_internal.h"
 #include <imgui.h>
 #include <backends/imgui_impl_opengl3.h>
 #include <backends/imgui_impl_glfw.h>
@@ -45,7 +46,11 @@ void ImGuiLayer::runImGui()
 void ImGuiLayer::onUpdate(double frameTime)
 {
     auto& app = Application::instance();
-    ImGui::DockSpaceOverViewport(nullptr, ImGuiDockNodeFlags_PassthruCentralNode);
+    static auto dockFlags = ImGuiDockNodeFlags_PassthruCentralNode |
+                            ImGuiDockNodeFlags_NoWindowMenuButton |
+                            ImGuiDockNodeFlags_NoCloseButton | ImGuiDockNodeFlags_NoTabBar;
+
+    ImGui::DockSpaceOverViewport(nullptr, dockFlags);
 
     // ImGui::ShowDemoWindow();
 
