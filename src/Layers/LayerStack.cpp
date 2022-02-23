@@ -19,6 +19,7 @@ LayerStack::~LayerStack()
 void LayerStack::pushLayer(Layer* layer)
 {
     m_insertionItr = m_layers.emplace(m_insertionItr, layer);
+    layer->onAttach();
 }
 
 void LayerStack::popLayer(Layer* layer)
@@ -31,7 +32,11 @@ void LayerStack::popLayer(Layer* layer)
     }
 }
 
-void LayerStack::pushOverlay(Layer* overlay) { m_layers.emplace_back(overlay); }
+void LayerStack::pushOverlay(Layer* overlay)
+{
+    m_layers.emplace_back(overlay);
+    overlay->onAttach();
+}
 
 void LayerStack::popOverlay(Layer* overlay)
 {
