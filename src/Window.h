@@ -25,7 +25,7 @@ private:
     };
 
 public:
-    Window(WindowProps data);
+    Window(WindowProps props);
     ~Window();
 
 public:

@@ -8,8 +8,8 @@
 
 namespace Engine {
 
-Window::Window(WindowProps data)
-    : m_data(std::move(data))
+Window::Window(WindowProps props)
+    : m_data(std::move(props))
 {
     glfwSetErrorCallback(
         [](int code, const char* msg) { ENGINE_ERROR("[GLFW] Error {}: {}", code, msg); });
